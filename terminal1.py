@@ -1,5 +1,5 @@
 # CRÉER UN TERMINAL AVEC PYTHON
-
+import os
 import subprocess
 
 # Popen : ancienne interface
@@ -7,12 +7,15 @@ import subprocess
 
 
 while True:
-    commande = input("Commande : ")
+    commande = input(f"{os.getcwd()} > ")
     if commande == "exit":
         break
-    
-    result = subprocess.run(commande, shell=True, capture_output=True, universal_newlines=True)  # ls sur Linux/macOS
-    
-    print(result.stdout)
-    print(result.stderr)
-    
+    commande_split = commande.split(" ")
+    if len(commande_split) == 2 and commande_split[0] == "cd":
+        os.chdir(commande_split[1])
+    else:
+        result = subprocess.run(commande, shell=True, capture_output=True, universal_newlines=True)  # ls sur Linux/macOS
+        
+        print(result.stdout)
+        print(result.stderr)
+        
