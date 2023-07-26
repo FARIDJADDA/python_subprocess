@@ -4,4 +4,6 @@ import subprocess
 
 # Popen : ancienne interface
 # run : executer la commande et attendre le résultat
-subprocess.run("ls -l", shell=True)  # dir sur Windows
+result = subprocess.run("dir", shell=True, capture_output=True)  # ls sur Linux/macOS
+
+print(result.stdout.decode("utf-8", errors="ignore"))
